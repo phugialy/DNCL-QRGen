@@ -2,6 +2,37 @@
 
 A powerful Chrome extension that converts text input or selected text into scannable QR codes.
 
+## 🚀 Quick Install (3 Steps)
+
+### Step 1: Download the Extension
+
+**Option A: Download as ZIP (Easiest)**
+1. Click the green **"Code"** button at the top of this page
+2. Click **"Download ZIP"**
+3. Extract the ZIP file to a folder (e.g., `Downloads/DNCL-QRGen-main`)
+
+**Option B: Clone with Git**
+```bash
+git clone https://github.com/phugialy/DNCL-QRGen.git
+cd DNCL-QRGen
+```
+
+### Step 2: Open Chrome Extensions Page
+
+1. Open Google Chrome
+2. Go to `chrome://extensions/` (paste this in the address bar)
+3. **Enable "Developer mode"** (toggle in the top-right corner)
+
+### Step 3: Load the Extension
+
+1. Click **"Load unpacked"** button
+2. Select the folder where you extracted/cloned the extension
+3. The extension icon will appear in your Chrome toolbar!
+
+**That's it!** 🎉 The extension is now installed and ready to use.
+
+---
+
 ## Features
 
 - **Manual Text Input**: Type any text and generate a QR code instantly
@@ -11,19 +42,24 @@ A powerful Chrome extension that converts text input or selected text into scann
 - **Keyboard Shortcuts**: Use Ctrl+Shift+Q for quick QR generation from selection
 - **Visual Feedback**: Hints and animations for better user experience
 
-## Installation
+## Installation (Detailed)
 
-### Method 1: Load Unpacked Extension (Development)
+### For Developers
 
-1. Download or clone this repository
-2. Open Chrome and navigate to `chrome://extensions/`
-3. Enable "Developer mode" in the top right corner
-4. Click "Load unpacked" and select the extension folder
-5. The extension will appear in your extensions list
+If you want to modify the extension:
 
-### Method 2: Chrome Web Store (Coming Soon)
+```bash
+# Clone the repository
+git clone https://github.com/phugialy/DNCL-QRGen.git
+cd DNCL-QRGen
 
-The extension will be available on the Chrome Web Store soon.
+# Make changes to the code
+# Then reload the extension in Chrome (chrome://extensions/)
+```
+
+### Chrome Web Store (Coming Soon)
+
+The extension will be available on the Chrome Web Store soon for one-click installation.
 
 ## Usage
 
@@ -125,10 +161,26 @@ The extension includes comprehensive error handling for:
 
 This project is licensed under the MIT License.
 
+## Troubleshooting
+
+**Extension not loading?**
+- Make sure you selected the correct folder (the one containing `manifest.json`)
+- Check that Developer mode is enabled
+- Try reloading the extension in `chrome://extensions/`
+
+**QR code not generating?**
+- Make sure you've entered text in the input field
+- Check browser console for errors (F12)
+- Try refreshing the extension popup
+
+**Extension icon not showing?**
+- Click the puzzle piece icon in Chrome toolbar
+- Pin the extension to make it always visible
+
 ## Support
 
 For issues, feature requests, or questions:
-1. Check the existing issues
+1. Check the existing [Issues](https://github.com/phugialy/DNCL-QRGen/issues)
 2. Create a new issue with detailed description
 3. Include browser version and steps to reproduce
 
