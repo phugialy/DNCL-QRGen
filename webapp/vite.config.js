@@ -6,7 +6,8 @@ import react from '@vitejs/plugin-react-swc';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
+  base: command === 'build' ? '/DNCL-QRGen/' : '/',
   plugins: [react()],
   resolve: {
     alias: {
@@ -23,4 +24,4 @@ export default defineConfig({
   optimizeDeps: {
     include: ['qrcode-generator'],
   },
-});
+}));

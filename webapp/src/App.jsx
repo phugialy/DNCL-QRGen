@@ -15,7 +15,7 @@ const defaultProfile = {
   defaultMessage: '',
 };
 
-const extensionBundlePath = '/downloads/dncl-qr-extension.zip';
+const extensionBundlePath = `${import.meta.env.BASE_URL}downloads/dncl-qr-extension.zip`;
 
 function App() {
   const qrGenerator = useMemo(() => createQrGenerator(QRCode), []);
