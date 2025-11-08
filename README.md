@@ -1,196 +1,114 @@
-# DNCL QR Code Generator Chrome Extension
+# DNCL QR Suite
 
-A powerful Chrome extension that converts text input or selected text into scannable QR codes.
-
-## 🚀 Quick Install (3 Steps)
-
-### Step 1: Download the Extension
-
-**Option A: Download as ZIP (Easiest)**
-1. Click the green **"Code"** button at the top of this page
-2. Click **"Download ZIP"**
-3. Extract the ZIP file to a folder (e.g., `Downloads/DNCL-QRGen-main`)
-
-**Option B: Clone with Git**
-```bash
-git clone https://github.com/phugialy/DNCL-QRGen.git
-cd DNCL-QRGen
-```
-
-### Step 2: Open Chrome Extensions Page
-
-1. Open Google Chrome
-2. Go to `chrome://extensions/` (paste this in the address bar)
-3. **Enable "Developer mode"** (toggle in the top-right corner)
-
-### Step 3: Load the Extension
-
-1. Click **"Load unpacked"** button
-2. Select the folder where you extracted/cloned the extension
-3. The extension icon will appear in your Chrome toolbar!
-
-**That's it!** 🎉 The extension is now installed and ready to use.
+Generate branded QR codes, personalise defaults per customer, and deliver the DNCL Chrome extension from one micro SaaS codebase.
 
 ---
 
-## Features
-
-- **Manual Text Input**: Type any text and generate a QR code instantly
-- **Selected Text Conversion**: Right-click on selected text to convert to QR code
-- **Page Text Conversion**: Convert entire page content to QR code
-- **Download & Copy**: Download QR codes as PNG images or copy to clipboard
-- **Keyboard Shortcuts**: Use Ctrl+Shift+Q for quick QR generation from selection
-- **Visual Feedback**: Hints and animations for better user experience
-
-## Installation (Detailed)
-
-### For Developers
-
-If you want to modify the extension:
-
-```bash
-# Clone the repository
-git clone https://github.com/phugialy/DNCL-QRGen.git
-cd DNCL-QRGen
-
-# Make changes to the code
-# Then reload the extension in Chrome (chrome://extensions/)
-```
-
-### Chrome Web Store (Coming Soon)
-
-The extension will be available on the Chrome Web Store soon for one-click installation.
-
-## Usage
-
-### Manual Text Input
-
-1. Click the extension icon in the Chrome toolbar
-2. Type your text in the input field
-3. Click "Generate QR Code"
-4. The QR code will appear below the input
-5. Use "Download" or "Copy" buttons to save the QR code
-
-### Selected Text Conversion
-
-1. Select any text on a webpage
-2. Right-click and choose "Generate QR Code from Selection"
-3. The extension popup will open with the QR code generated
-4. Alternatively, use Ctrl+Shift+Q keyboard shortcut
-
-### Page Text Conversion
-
-1. Right-click anywhere on a webpage
-2. Choose "Generate QR Code from Page"
-3. The extension will generate a QR code from the page content
-
-## Keyboard Shortcuts
-
-- **Ctrl+Shift+Q**: Generate QR code from selected text
-
-## Technical Details
-
-- **Manifest Version**: 3
-- **Permissions**: activeTab, contextMenus, storage
-- **QR Code Library**: QRCode.js
-- **Maximum Text Length**: 2,953 characters (QR code limit)
-- **Supported Formats**: PNG download, clipboard copy
-
-## File Structure
+## 🗂 Project layout
 
 ```
 DNCL-QRGen/
-├── manifest.json          # Extension configuration
-├── popup.html            # Main popup interface
-├── popup.css             # Popup styling
-├── popup.js              # Popup functionality
-├── background.js         # Background service worker
-├── content.js            # Content script for page interaction
-├── qrcode.min.js         # QR code generation library
-├── icons/                # Extension icons
-│   └── icon.svg         # SVG icon source
-└── README.md            # This file
+├── extension/                # Chrome extension (MV3) ready for Load Unpacked
+│   ├── background.js
+│   ├── content.js
+│   ├── manifest.json
+│   ├── popup.html / .css / .js
+│   └── shared/qrGenerator.js # Shared QR utilities (ES module)
+├── shared/                   # Source-of-truth QR helpers consumable by web + extension
+│   └── qr/qrGenerator.js
+└── webapp/                   # Micro SaaS front-end (Vite + React)
+    ├── public/downloads/     # Ships dncl-qr-extension.zip for one-click grab
+    ├── src/components/       # Modular UI slices
+    ├── src/hooks/            # Local state persistence helpers
+    └── vite.config.js
 ```
 
-## Development
+> The extension package is re-zipped into `webapp/public/downloads/dncl-qr-extension.zip` so the web app can auto-serve the latest build.
 
-### Prerequisites
+---
 
-- Google Chrome browser
-- Basic knowledge of Chrome extension development
+## 🚀 Quick start
 
-### Building
+### 1. Clone
 
-1. Clone the repository
-2. Make your changes
-3. Test in Chrome using "Load unpacked"
-4. Package for distribution using Chrome's "Pack extension" feature
+```bash
+git clone https://github.com/phugialy/DNCL-QRGen.git
+cd DNCL-QRGen
+```
 
-### Testing
+### 2. Run the micro web app
 
-1. Load the extension in Chrome
-2. Test manual text input
-3. Test selected text conversion
-4. Test page text conversion
-5. Verify download and copy functionality
-6. Test keyboard shortcuts
+```bash
+cd webapp
+npm install
+npm run dev
+```
 
-## Error Handling
+Visit the URL printed by Vite (usually `http://localhost:5173`). All customer personalisation is cached in `localStorage`, so returning users pick up where they left off.
 
-The extension includes comprehensive error handling for:
-- Empty text input
-- Text length limits
-- QR code generation failures
-- Download/copy failures
-- Network connectivity issues
+### 3. Install the Chrome extension
 
-## Browser Compatibility
+1. Click **Download extension package** inside the web app *(or grab `webapp/public/downloads/dncl-qr-extension.zip` directly)*.
+2. Extract the ZIP so you have a plain folder.
+3. Open `chrome://extensions/` → enable **Developer mode**.
+4. Choose **Load unpacked** and point at the extracted folder.
+5. Pin the “DNCL QR Generator” icon for quick access.
 
-- Chrome 88+
-- Chromium-based browsers (Edge, Brave, etc.)
+---
 
-## Contributing
+## 💻 Web app highlights
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
+- **Persistent personalisation**: store a customer label + default message in the browser cache.
+- **High-fidelity QR output**: generates 512px PNGs with configurable error correction.
+- **Copy & download**: one-click PNG download or clipboard copy (with text fallback).
+- **Extension hand-off**: fetches the latest `dncl-qr-extension.zip` served alongside the SPA.
 
-## License
+Useful scripts:
 
-This project is licensed under the MIT License.
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start Vite with hot reloading |
+| `npm run build` | Production build (also zips the extension via CI) |
+| `npm run lint` | ESLint check (React + SWC) |
 
-## Troubleshooting
+---
 
-**Extension not loading?**
-- Make sure you selected the correct folder (the one containing `manifest.json`)
-- Check that Developer mode is enabled
-- Try reloading the extension in `chrome://extensions/`
+## 🧩 Chrome extension features
 
-**QR code not generating?**
-- Make sure you've entered text in the input field
-- Check browser console for errors (F12)
-- Try refreshing the extension popup
+- Manual text input with instant preview.
+- Context-menu entries for selected text and full page content.
+- Keyboard shortcut `Ctrl + Shift + Q`.
+- Offline-friendly QR rendering using the shared generator module.
+- Download, copy-to-clipboard, and helpful hints in the popup.
 
-**Extension icon not showing?**
-- Click the puzzle piece icon in Chrome toolbar
-- Pin the extension to make it always visible
+### Load for development
 
-## Support
+```bash
+cd DNCL-QRGen/extension
+# edit files, then reload the extension via chrome://extensions/
+```
 
-For issues, feature requests, or questions:
-1. Check the existing [Issues](https://github.com/phugialy/DNCL-QRGen/issues)
-2. Create a new issue with detailed description
-3. Include browser version and steps to reproduce
+Changes to shared QR logic live in `shared/qr/qrGenerator.js`. The extension consumes the transpiled copy in `extension/shared/qrGenerator.js`.
 
-## Changelog
+---
 
-### Version 1.0.0
-- Initial release
-- Manual text input
-- Selected text conversion
-- Page text conversion
-- Download and copy functionality
-- Keyboard shortcuts
-- Visual feedback and animations
+## 🛠 Automation roadmap
+
+- GitHub Actions workflow will build the SPA, re-zip the extension, and publish to GitHub Pages.
+- Release tags will attach the latest `dncl-qr-extension.zip` as an artifact.
+- Future toggle: deploy the extension to the Chrome Web Store once credentials are added.
+
+---
+
+## 🤝 Contributing
+
+1. Fork the repo and create a feature branch.
+2. Run `npm run lint` and `npm run build` inside `webapp/`.
+3. Reload the extension and smoke-test the popup.
+4. Submit a pull request with screenshots or notes.
+
+---
+
+## 📄 License
+
+MIT © DNCL
